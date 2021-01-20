@@ -40,17 +40,7 @@ class CreditCardOperatorController extends Controller
         return Operator::findOrFail($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
+  
     /**
      * Update the specified resource in storage.
      *
@@ -60,7 +50,8 @@ class CreditCardOperatorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $operator = Operator::findOrFail($id);
+        $operator->update($request->all());
     }
 
     /**
@@ -71,6 +62,7 @@ class CreditCardOperatorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $operator = Operator::findOrFail($id);
+        $operator->delete();
     }
 }
