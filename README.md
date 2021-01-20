@@ -1,3 +1,13 @@
+# Projeto teste para Avansys
+
+## Arquitetura utilizada
+
+Docker, Docker-compose, Laravel, Vue.js e banco de dados MySql
+
+## Configuração/instalação
+-Clone o repositório utilize o comando "docker-compse up -d" para iniciar os containers
+-Com os containers ativos e ainda na pasta raiz do projeto digite "docker-compose exec php-fpm bash"
+
 ## Regras Iniciais
 1) Antes de começar o desenvolvimento faça um FORK desse repositório.
 2) Após o FORK verifique se o repositório criado está público.
