@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submit">
-    {{ form }}
+   
     <div>
       <label for="email"> Email </label>
 

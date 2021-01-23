@@ -16,6 +16,7 @@ export default {
         user(state) {
             return state.user
         }
+
     },
 
     mutations: {
@@ -34,17 +35,17 @@ export default {
 
         },
 
-        async attempt({ commit }, token) {
-            commit('SET_TOKEN', token)
+        async attempt({ commit, state }, token) {
+            if (token) {
+                commit('SET_TOKEN', token)
+            }
 
+            if (!state.token) {
+                return
+            }
             //Check if is a valid token    
             try {
-
-                let response = await axios.get('operators', {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    }
-                })
+                let response = await axios.get('me')
                 commit('SET_USER', response.data)
             } catch (e) {
                 commit('SET_TOKEN', null)
@@ -52,8 +53,13 @@ export default {
                 //
             }
 
+        },
 
-
+        signOut({ commit }) {
+            return axios.post('logout').then(() => {
+                commit('SET_TOKEN', null)
+                commit('SET_USER', null)
+            })
         }
 
     }

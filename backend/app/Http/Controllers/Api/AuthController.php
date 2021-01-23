@@ -24,8 +24,15 @@ class AuthController extends Controller
         $user = User::create($validatedData);
 
         $accessToken = $user->createToken('authToken')->accessToken;
+        
 
         return response(['user' => $user, 'access_token' => $accessToken]);
+    }
+
+    public function me()
+    {
+        $accessToken = auth()->user()->createToken('authToken')->accessToken;
+        return $accessToken;
     }
 
     public function login(Request $request)
@@ -43,6 +50,9 @@ class AuthController extends Controller
 
         return response(['user' => auth()->user(), 'access_token' => $accessToken]);
     }
+
+
+
 
     /**
      * Logout user (Revoke the token)
