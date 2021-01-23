@@ -20,16 +20,15 @@
 
 <script>
 
-import axios from 'axios';
+import { mapActions } from 'vuex'
 
 export default {
-  name: "login",
+  name: "signin",
   components: {
     //
   },
 
   data () {
-
     return {
       form: {
         email: '',
@@ -40,11 +39,18 @@ export default {
   },
 
   methods: {
-   async submit () {
-      let response = axios.post('http://localhost:8081/api/login', this.form)
-      console.log(response.data);
-    }
+    ...mapActions({
+      signIn: 'auth/signIn'
+    }),
+
+   submit () {     
+     this.signIn(this.form).then(() => {
+       this.$router.replace({
+         name: 'dashboard'
+       })
+     })
+  }
   }
 
-};
+}
 </script>
