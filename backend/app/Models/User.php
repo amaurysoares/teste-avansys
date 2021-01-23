@@ -12,6 +12,10 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable;
 
 
+    public function AauthAcessToken()
+    {
+        return $this->hasMany('\App\Models\OauthAccessToken');
+    }
     /**
      * The attributes that are mass assignable.
      *
