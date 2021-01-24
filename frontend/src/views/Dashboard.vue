@@ -27,14 +27,16 @@
 </div>
 </div>
 
-<div class="row" style="margin-top: 15px; margin-bottom: 15px;">
+<div class="row" style="margin-top: 30px; margin-bottom: 15px;">
 
    <div class="col-md-2 wrap-add-button">
-     <button class="rounded-button add-button"> 
+     <button class="rounded-button add-button" @click="isVisibleAddForm = !isVisibleAddForm"> 
        <span class="material-icons" style="vertical-align: -5px;">add</span><span style="margin-top: -15px;">NOVO</span> </button>
        </div>
 
 </div>
+
+
 
  <table class="table">
         <thead>
@@ -42,13 +44,43 @@
              <th></th>
               <th>Operadora</th>
               <th>Descrição</th>
-              <th></th>              
+                            
           </tr>
         </thead>
 
     
  <tbody>
-          <tr v-for="operator in operators" :key="operator.id" :class="{editing: operator == editedOperator}" v-cloak>
+
+   <tr v-show="isVisibleAddForm">
+     
+
+         <td>
+              <div class="save">
+                <button class="rounded-button ok-button" @click="saveData(operator)">ok</button>
+                <button class="rounded-button cancel-button" @click="saveData(operator)">X</button>
+
+              </div>
+                            
+            </td>
+            <td>
+            
+              <div class="save">
+                <input type="text" />
+              </div>
+            </td>
+            <td>
+              
+              <div class="save">
+                <input type="text" />
+              </div>
+            </td>
+
+   </tr>
+  
+            
+
+   
+          <tr  v-for="operator in operators" :key="operator.id" :class="{editing: operator == editedOperator}" v-cloak>
             
             <!-- <td>
               <input type="checkbox" name="myTextEditBox">
@@ -116,6 +148,7 @@ export default {
 
 data() {  
    return {
+    isVisibleAddForm: false, 
     operators: [],
     editMode: false,
     editedOperator: null
@@ -130,7 +163,7 @@ computed: {
     Operator.list().then(res => {
       this.operators = res.data
     })
-    //console.log(token)
+    console.log(this.isVisibleAddForm)
   },
 
     methods: {
@@ -175,6 +208,10 @@ computed: {
       display: none;
       background: #d0f6f9;
     }
+    .save .view {
+
+      display: none;
+    }
 
     h3{
       font-size: 1.3rem;
@@ -208,5 +245,23 @@ computed: {
 .select-option select{
   margin-top: -20px;
 }
+div.edit{
+  padding: 10px;
+  background: transparent;
+}
 
+div.edit input{
+  background: transparent;
+  border: none;
+}
+div.edit input:active, div.edit input:focus {
+ background: transparent;
+ outline: none;
+ border: 1px solid #888888;
+ border-radius: 6px;
+  
+}
+tr.editing {
+  background: #d0f6f9;
+}
 </style>
