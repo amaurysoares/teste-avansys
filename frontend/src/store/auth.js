@@ -45,7 +45,7 @@ export default {
             }
             //Check if is a valid token    
             try {
-                let response = await axios.get('me')
+                let response = await axios.get('operators')
                 commit('SET_USER', response.data)
             } catch (e) {
                 commit('SET_TOKEN', null)

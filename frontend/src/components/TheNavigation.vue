@@ -2,22 +2,17 @@
 <ul>
 <template v-if="authenticated">
 
-  {{ user }}
-    <li>
-      <router-link :to="{ name: 'home' }"> Home </router-link>
-    </li>
-    <li>
-      <router-link :to="{ name: 'dashboard' }"> Dashboard </router-link>
-    </li>  
-    <li>
-      <a href="#" @click.prevent="signOut"> Signout </a>
-    </li>
+ 
+      <a href="#" @click.prevent="signOut" > Logout </a>
+    
+  
+
 </template>
 
 <template v-else>
-   <li>
+   <div style="float: right; list-style: none;">
       <router-link :to="{ name: 'signin' }"> Signin </router-link>
-    </li>
+   </div>
 
 </template>
 </ul>

@@ -10,4 +10,4 @@ Route::get('/me', 'Api\AuthController@me');
 
 Route::post('/logout', 'Api\AuthController@logout');
 
-Route::apiResource('operators', 'Api\CreditCardOperatorController')->middleware('auth:api');;
+Route::apiResource('operators', 'Api\CreditCardOperatorController');
