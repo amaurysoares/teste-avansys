@@ -139,7 +139,7 @@ data() {
     
     },
     selectedOperators: this.operators,
-    selectedStatus: '', 
+    selectedStatus: ALL, 
     isVisibleAddForm: false, 
     operators: [],
    
@@ -156,9 +156,8 @@ computed: {
       else{
         return this.operators.filter(operator => operator.active === parseInt(this.selectedStatus, 10));
 
-      }      
-        
-            
+      }   
+                  
 
     }
   },
