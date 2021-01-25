@@ -13,7 +13,7 @@
 
   <label for="operadoras">LISTAR OPERADORA</label>
 <select class="form-control" >
-  <option value=""></option>
+  <option value="all">TODOS</option>
     <option v-bind:value="operators" v-for="operator in filteredOperators" :key="operator.id">{{ operator.name }}</option>
   </select>
 </div>
@@ -87,7 +87,7 @@
 
                 
                 <label class="switch">
-                <input type="checkbox" :checked="operator.active == 1">
+                <input type="checkbox" :checked="operator.active == 1" @change="updateStatus(operator)">
                <span class="slider round"></span>
                  </label>
 
@@ -156,8 +156,7 @@ computed: {
       else{
         return this.operators.filter(operator => operator.active === parseInt(this.selectedStatus, 10));
 
-      }   
-                  
+      }                    
 
     }
   },
@@ -191,6 +190,16 @@ methods: {
     updateData (operator){
       
       Operator.update(operator).then(() =>{
+        this.list()
+
+      }).catch(e => {
+          console.log(e.response.data.message)
+        })  
+    },
+
+    updateStatus (operator){
+      
+      Operator.updateStatus(operator).then(() =>{
         this.list()
 
       }).catch(e => {
