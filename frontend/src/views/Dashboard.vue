@@ -44,23 +44,19 @@
           <tr>             
              <th></th>
               <th>Operadora</th>
-              <th>Descrição</th>
-                            
+              <th>Descrição</th>                            
           </tr>
-        </thead>
-
-    
+        </thead>    
  <tbody>
 
    <tr v-show="isVisibleAddForm">    
 
          <td>
-              <div class="save">
-                <button class="rounded-button ok-button" @click="saveData(operator)">ok</button>
-                <button class="rounded-button destroy-button" @click="isVisibleAddForm = false">X</button>
-              </div>
-                            
-            </td>
+            <div class="save">
+              <button class="rounded-button ok-button" @click="saveData(operator)">ok</button>
+              <button class="rounded-button destroy-button" @click="isVisibleAddForm = false">X</button>
+            </div>                           
+         </td>
             <td>            
               <div class="save">
                 <input type="text"  v-model="operator.name"/>
@@ -76,10 +72,7 @@
                
           <tr  v-for="operator in operators" :key="operator.id" :class="{editing: operator == editedOperator}" v-cloak>
             
-            <!-- <td>
-              <input type="checkbox" name="myTextEditBox">
-            </td> -->
-            <td>
+          <td>
               <div class="edit">
                 <button class="rounded-button ok-button" @click="updateData(operator)">ok</button>
                 <button class="rounded-button cancel-button" @click="destroyData(operator)">X</button>
@@ -118,13 +111,11 @@
               </div>
             </td>
             
-            <!-- <td><button>delete</button></td> -->
           </tr>
         </tbody>
       </table>
 
-
-     
+  
 
    </div>
   </div>
@@ -132,10 +123,6 @@
 
 <script>
 import Operator from '@/services/operators'
-
-//import store from '@/store'
-
-// let token = store.state.token
 
 export default {
   name: 'dashboard',
@@ -152,16 +139,18 @@ data() {
     }, 
     isVisibleAddForm: false, 
     operators: [],
+   
     editMode: false,
     editedOperator: null
   }
+
+},
+computed: {
 },
 
-computed: {
-  },
-
-  mounted() {    
-    this.list();
+mounted() {    
+    this.list()
+   
 },
 
 methods: {
@@ -172,11 +161,12 @@ methods: {
     })
     },  
 
-    selectStatus(event){
-     let status =  parseInt(event.target.value, 10);   
-     this.operators = this.operators.filter(operator => operator.active == status)   
-     //return this.operators
-     //return this.operators
+    selectStatus(){
+    //  let status =  parseInt(event.target.value, 10);   
+    //  this.list();
+    //  this.operators = this.operators.filter(operator => operator.active === status) 
+    //  console.log(this.operators)  
+    //  return this.operators;
      
     },  
 
@@ -190,6 +180,7 @@ methods: {
     },
 
     updateData (operator){
+      
       Operator.update(operator).then(() =>{
         this.list()
 
@@ -199,7 +190,6 @@ methods: {
     },
 
     destroyData(operator){
-
       Operator.destroy(operator).then(() => {
         this.list()
 

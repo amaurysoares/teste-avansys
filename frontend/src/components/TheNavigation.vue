@@ -2,17 +2,14 @@
 <ul>
 <template v-if="authenticated">
 
- 
-      <a href="#" @click.prevent="signOut" > Logout </a>
-    
+<a href="#" @click.prevent="signOut" > Logout </a>
   
-
 </template>
 
 <template v-else>
-   <div style="float: right; list-style: none;">
-      <router-link :to="{ name: 'signin' }"> Signin </router-link>
-   </div>
+<li>
+<router-link :to="{ name: 'signin' }"> Signin </router-link>
+</li>
 
 </template>
 </ul>

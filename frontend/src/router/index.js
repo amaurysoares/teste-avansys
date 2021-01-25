@@ -25,14 +25,16 @@ const routes = [
     name: 'dashboard',
     component: Dashboard
     // beforeEnter: (to, from, next) => {
-    //   if (!store.getters['auth/authenticated']) {
+    //   if (!store.getters['auth/authenticated']) {aa
     //     return next({
-    //       name: 'signin'
+    //       name: 'dashboard'
     //     })
     //   }
-    //   next()
+    //   next({
+    //     name: 'signin'
+    //   })
 
-    // }
+  //}
   },
 
 ]
