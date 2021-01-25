@@ -1,47 +1,29 @@
 # Projeto teste para Avansys
 
-## Arquitetura utilizada
+## Arquitetura utilizada no projeto
 
-Docker, Docker-compose, Laravel, Vue.js e banco de dados MySql
+Docker, Docker-compose, Laravel, Laravel passport, Vue.js com Vuex e Axios, e banco de dados MySql
 
 ## Configuração/instalação
--Clone o repositório utilize o comando "docker-compse up -d" para iniciar os containers
+-Clone o repositório utilize o comando "docker-compose up -d" para iniciar os containers
 -Com os containers ativos e ainda na pasta raiz do projeto digite "docker-compose exec php-fpm bash"
 
-## Regras Iniciais
-1) Antes de começar o desenvolvimento faça um FORK desse repositório.
-2) Após o FORK verifique se o repositório criado está público.
-3) Arquitetura de desenvolvimento:
-  - VUE.js;
-  - Laravel 7 USANDO padrão REST;
-  - Banco opcional;
 
-## Informações adicionais.
-1) No seu fork crie um readme.md contendo as seguintes informações.
-    - Qual arquitetura utilizada no seu projeto.
-    - Teve algum problema no momento do desenvolvimento que gostaria de nos dizer?
-    - Fez algo adicional que não estava previsto nesse documento e gostaria de nos dizer?
-  
-## Objetivos do desafio:  
+### Problemas no desenvolvimento
 
-### Backend
-1)   Criar um serviço para buscar os dados da operadora
-2)   Criar um serviço para criar uma operadora
-3)   Criar um serviço para editar uma operadora
-4)   Criar um serviço para excluir a operadora
+#### Tecnologias utilizadas
+Tive dúvidas sobre a implementação do vuex, demorou um pouco para entender o funcionamento dele. 
 
-### Frontend
-1)   Seguir o protótipo 
- - https://www.figma.com/file/kgmFNAmWJoRuUUoau9Evgg/Exerc%C3%ADcio-Front-End-Vue?node-id=8%3A625
+#### Interface FIGMA
+Sobre a interface feita no FIGMA tive também algumas dúvidas sobre telas e funcionalidades, como por ex. como deveria ser a tela de operadora selecionada, inclusive fiquei em dúvida sobre isso, o ideal é que ali fosse uma busca simples pela operadora, ao invés de um select, ou talvez não tenha entendido se uma operadora é uma "entidade" ou um "tipo/categoria", decidi focar em fazer o filtro de operadoras ativas/inativas. 
 
-## Diferenciais.
-1) Usar o DOCKER
-2) Fazer teste automatizado usando PHPUNIT
-2) Fazer teste usando CYPRESS
+#### Pendências
+Ficou faltando implementar as ações "em lote", selecionar todas as operadores e ativar/desativar e/ou excluir/deletar.
 
-## O que será avaliado:
- - Arquitetura Adotada.
- - Clean Code.
- - Reaproveitamento de código
- - Solução do Problema proposto
- - Melhores práticas de desenvolvimento
+
+### Adicionais
+Além da utilização do DOCKER, Implementei um sistema de autenticação com vue/vuex, fazendo a proteção com autenticação das rotas da API utilizando o Laravel passport. No vue.js utilizei uma espécie de middleware que configura o padrão a ser utilizado em cada request via AXIOS. 
+
+
+
+
