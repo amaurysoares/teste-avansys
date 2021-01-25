@@ -13,8 +13,7 @@ export default {
     update: (operator) => {
         return axios.patch('operators/' + operator.id, { 'name': operator.name, 'description': operator.description, 'active': operator.active })
         //
-    },
-    
+    },    
 
     destroy: (operator) => {
         return axios.delete('operators/' + operator.id, { operator })

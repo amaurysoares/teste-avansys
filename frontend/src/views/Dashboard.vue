@@ -14,7 +14,7 @@
   <label for="operadoras">LISTAR OPERADORA</label>
 <select class="form-control" >
   <option value=""></option>
-    <option v-bind:value="operators" v-for="operator in operators" :key="operator.id">{{ operator.name }}</option>
+    <option v-bind:value="operators" v-for="operator in filteredOperators" :key="operator.id">{{ operator.name }}</option>
   </select>
 </div>
 
@@ -22,7 +22,7 @@
     <label for="status">STATUS</label>
 
  <select class="form-control" @change="selectStatus" >
-     <option value=""></option>
+     <option value="all">TODOS</option>
 
       <option value="1">Ativos</option>
     <option value="0">Inativos</option>
@@ -70,7 +70,7 @@
 
    </tr>
                
-          <tr  v-for="operator in operators" :key="operator.id" :class="{editing: operator == editedOperator}" v-cloak>
+          <tr  v-for="operator in filteredOperators" :key="operator.id" :class="{editing: operator == editedOperator}" v-cloak>
             
           <td>
               <div class="edit">
@@ -124,6 +124,7 @@
 <script>
 import Operator from '@/services/operators'
 
+const ALL = 'all';
 export default {
   name: 'dashboard',
 
@@ -136,7 +137,9 @@ data() {
       description: '',
       active: 1
     
-    }, 
+    },
+    selectedOperators: this.operators,
+    selectedStatus: '', 
     isVisibleAddForm: false, 
     operators: [],
    
@@ -146,7 +149,19 @@ data() {
 
 },
 computed: {
-},
+    filteredOperators() {
+      if (this.selectedStatus == ALL){
+        return this.operators; 
+      }
+      else{
+        return this.operators.filter(operator => operator.active === parseInt(this.selectedStatus, 10));
+
+      }      
+        
+            
+
+    }
+  },
 
 mounted() {    
     this.list()
@@ -161,14 +176,9 @@ methods: {
     })
     },  
 
-    selectStatus(){
-    //  let status =  parseInt(event.target.value, 10);   
-    //  this.list();
-    //  this.operators = this.operators.filter(operator => operator.active === status) 
-    //  console.log(this.operators)  
-    //  return this.operators;
-     
-    },  
+    selectStatus(event) {      
+        this.selectedStatus = event.target.value       
+    },
 
     saveData (operator) {           
         Operator.save(operator).then(() => {
