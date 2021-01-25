@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', 'Api\AuthController@register');
 
 Route::post('/login', 'Api\AuthController@login');
-Route::get('/me', 'Api\AuthController@me');
+Route::get('/user', 'Api\AuthController@user');
 
 Route::post('/logout', 'Api\AuthController@logout');
 
-Route::apiResource('operators', 'Api\CreditCardOperatorController');
+Route::apiResource('operators', 'Api\CreditCardOperatorController')->middleware('auth:api');

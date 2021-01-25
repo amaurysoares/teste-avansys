@@ -12,7 +12,8 @@
 <div class="col-md-4 select-option">
 
   <label for="operadoras">LISTAR OPERADORA</label>
-<select class="form-control" v-model="selected">
+<select class="form-control" >
+  <option value=""></option>
     <option v-bind:value="operators" v-for="operator in operators" :key="operator.id">{{ operator.name }}</option>
   </select>
 </div>
@@ -20,9 +21,11 @@
 <div class="col-md-4 select-option">
     <label for="status">STATUS</label>
 
- <select class="form-control" v-model="selected"  >
-    <option>Ativos</option>
-    <option>Inativos</option>
+ <select class="form-control" @change="selectStatus" >
+     <option value=""></option>
+
+      <option value="1">Ativos</option>
+    <option value="0">Inativos</option>
  </select>       
 </div>
 </div>
@@ -35,8 +38,6 @@
        </div>
 
 </div>
-
-
 
  <table class="table">
         <thead>
@@ -51,35 +52,28 @@
     
  <tbody>
 
-   <tr v-show="isVisibleAddForm">
-     
+   <tr v-show="isVisibleAddForm">    
 
          <td>
               <div class="save">
                 <button class="rounded-button ok-button" @click="saveData(operator)">ok</button>
-                <button class="rounded-button cancel-button" @click="saveData(operator)">X</button>
-
+                <button class="rounded-button destroy-button" @click="isVisibleAddForm = false">X</button>
               </div>
                             
             </td>
-            <td>
-            
+            <td>            
               <div class="save">
-                <input type="text" />
+                <input type="text"  v-model="operator.name"/>
               </div>
             </td>
-            <td>
-              
+            <td>              
               <div class="save">
-                <input type="text" />
+                <input type="text" v-model="operator.description"/>
               </div>
             </td>
 
    </tr>
-  
-            
-
-   
+               
           <tr  v-for="operator in operators" :key="operator.id" :class="{editing: operator == editedOperator}" v-cloak>
             
             <!-- <td>
@@ -87,12 +81,12 @@
             </td> -->
             <td>
               <div class="edit">
-                <button class="rounded-button ok-button" @click="saveData(operator)">ok</button>
-                <button class="rounded-button cancel-button" @click="saveData(operator)">X</button>
+                <button class="rounded-button ok-button" @click="updateData(operator)">ok</button>
+                <button class="rounded-button cancel-button" @click="destroyData(operator)">X</button>
 
               </div>
               <div class="view" >
-                <button class="rounded-button edit-button" @click="editData(operator)">
+                <button class="rounded-button edit-button" @click="[ editData(operator), isVisibleAddForm = false ] ">
                   <span class="material-icons">
                   edit
                   </span>
@@ -148,6 +142,14 @@ export default {
 
 data() {  
    return {
+
+    operator: {
+      id: '',
+      name: '',
+      description: '',
+      active: 1
+    
+    }, 
     isVisibleAddForm: false, 
     operators: [],
     editMode: false,
@@ -156,35 +158,62 @@ data() {
 },
 
 computed: {
-   
   },
 
-  mounted() {
-    Operator.list().then(res => {
+  mounted() {    
+    this.list();
+},
+
+methods: {
+
+    list() {
+      Operator.list().then(res => {       
       this.operators = res.data
     })
-    console.log(this.isVisibleAddForm)
-  },
-
-    methods: {
-
-    selectState(){
-      alert('opa, você mudou!')
     },  
-    saveOperator () {      
-      Operator.save(this.operator).then(res => {
-        console.log(res.data)
-        alert('salvo com sucesso!')
-      })
+
+    selectStatus(event){
+     let status =  parseInt(event.target.value, 10);   
+     this.operators = this.operators.filter(operator => operator.active == status)   
+     //return this.operators
+     //return this.operators
+     
+    },  
+
+    saveData (operator) {           
+        Operator.save(operator).then(() => {
+            this.list()
+            this.isVisibleAddForm = false
+        }).catch(e => {
+          console.log(e.response.data.message)
+        })  
     },
-    editData (operator) {
+
+    updateData (operator){
+      Operator.update(operator).then(() =>{
+        this.list()
+
+      }).catch(e => {
+          console.log(e.response.data.message)
+        })  
+    },
+
+    destroyData(operator){
+
+      Operator.destroy(operator).then(() => {
+        this.list()
+
+      }).catch(e => {
+        this.errors = e.response.data.errors
+      })
+
+    },
+    
+    editData(operator) {
       this.beforEditCache = operator
       this.editedOperator = operator
     }
-  }
-
-
-  
+  }  
 }
 </script>
 
@@ -195,73 +224,5 @@ computed: {
 
 @import '../assets/buttons.css';
 
-[v-cloak] {
-    display: none;
-    }
-    .edit {
-      display: none;
-    }
-    .editing .edit {
-      display: block
-    }
-    .editing .view {
-      display: none;
-      background: #d0f6f9;
-    }
-    .save .view {
-
-      display: none;
-    }
-
-    h3{
-      font-size: 1.3rem;
-    }
-
-#main-table{
-      padding: 55px 15px;      
-      background: #ffffff;
-      border: 3px solid #d3d2d2;
-      border-radius: 5px;
-    }
-
-
-    table {
-      font-size: 0.9rem;
-    }
-  
-.header{
-  margin: 10px;
-}
-
-.select-option label{
-  
-  background: #ffffff;
-  color:  #333333;
-  font-weight: bold;
-  font-size: 0.8rem;
-  margin-left: 8px;
-}
-
-.select-option select{
-  margin-top: -20px;
-}
-div.edit{
-  padding: 10px;
-  background: transparent;
-}
-
-div.edit input{
-  background: transparent;
-  border: none;
-}
-div.edit input:active, div.edit input:focus {
- background: transparent;
- outline: none;
- border: 1px solid #888888;
- border-radius: 6px;
-  
-}
-tr.editing {
-  background: #d0f6f9;
-}
+@import '../assets/dashboard.css';
 </style>

@@ -1,21 +1,22 @@
-//import axios from 'axios'
-import { http } from './config'
+import axios from 'axios'
 
 export default {
 
     list: () => {
-        return http.get('operators')
+        return axios.get('operators')
     },
 
     save: (operator) => {
-        return http.post('operators', operator)
+        return axios.post('operators', operator)
     },
 
-    edit: () => {
+    update: (operator) => {
+        return axios.put('operators', operator)
         //
     },
 
-    destroy: () => {
+    destroy: (operator) => {
+        return axios.delete('operators', { data: operator })
         //
     }
 

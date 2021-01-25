@@ -1,0 +1,69 @@
+[v-cloak] {
+    display: none;
+    }
+    .edit {
+      display: none;
+    }
+    .editing .edit {
+      display: block
+    }
+    .editing .view {
+      display: none;
+      background: #d0f6f9;
+    }
+    .save .view {
+
+      display: none;
+    }
+
+    h3{
+      font-size: 1.3rem;
+    }
+
+#main-table{
+      padding: 55px 15px;      
+      background: #ffffff;
+      border: 3px solid #d3d2d2;
+      border-radius: 5px;
+    }
+
+
+    table {
+      font-size: 0.9rem;
+    }
+  
+.header{
+  margin: 10px;
+}
+
+.select-option label{
+  
+  background: #ffffff;
+  color:  #333333;
+  font-weight: bold;
+  font-size: 0.8rem;
+  margin-left: 8px;
+}
+
+.select-option select{
+  margin-top: -20px;
+}
+div.edit{
+  padding: 10px;
+  background: transparent;
+}
+
+div.edit input, div.save input{
+  background: transparent;
+  border: none;
+}
+div.edit input:active, div.edit input:focus,  div.save input:focus  {
+ background: transparent;
+ outline: none;
+ border: 1px solid #888888;
+ border-radius: 6px;
+  
+}
+tr.editing {
+  background: #d0f6f9;
+}

@@ -29,9 +29,13 @@ class AuthController extends Controller
         return response(['user' => $user, 'access_token' => $accessToken]);
     }
 
-    public function me()
+    public function user(Request $request)
     {
-        dd(Auth::check());
+        $accessToken = $request->user('api')->createToken('authToken')->accessToken;
+        $user = $request->user('api');
+
+        return response(['user' => $user, 'access_token' => $accessToken]);
+      
     }
 
     public function login(Request $request)
